@@ -1,3 +1,5 @@
+import 'services/networking.dart';
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -28,4 +30,13 @@ const List<String> cryptoList = [
   'LTC',
 ];
 
-class CoinData {}
+const apiKey = 'INSERT-YOUR-APIKEY-HERE';
+const coinApiURL = 'https://rest.coinapi.io/v1/exchangerate/';
+
+class CoinData {
+  Future<dynamic> getCoinData(String crypto, String currency) async {
+    NetworkHelper networkHelper = NetworkHelper('$coinApiURL$crypto/$currency?apikey=$apiKey');
+    var rateData = await networkHelper.getData();
+    return rateData;
+  }
+}
